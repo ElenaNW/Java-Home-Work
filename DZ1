@@ -1,0 +1,104 @@
+package DZ1;
+
+import java.util.Scanner;
+import java.util.Arrays;
+import java.util.IntSummaryStatistics;
+
+import java.util.Calendar;
+
+public class DZ1 {
+    public static void main(String[] args) {
+        //task01();
+        //task02();
+        //task03();
+        task04();
+    }
+
+    public static int[] task01() {
+        //1. Написать метод, принимающий на вход два аргумента: len и initialValue,
+        // и возвращающий одномерный массив типа int длиной len, каждая ячейка которого равна initialValue;
+
+        Scanner input = new Scanner(System.in);
+        System.out.println("Укажите длину массива: ");
+        int len = input.nextInt();
+
+        int[] array1 = new int[len];
+
+        for (int i = 0; i < len; i++) {
+            System.out.println("Введите элемент массива: ");
+            int initialValue = input.nextInt();
+            array1[i] = initialValue;
+
+        }
+        System.out.println(Arrays.toString(array1));
+        return array1;
+    }
+
+    public static void task02() {
+        //2. Задать одномерный массив и найти в нем минимальный и максимальный элементы.
+        int[] array2 = {5, 12, 102, 1, -10, 0};
+        IntSummaryStatistics find = Arrays.stream(array2).summaryStatistics();
+        System.out.println("Минимальный элемент массива: " + find.getMin());
+        System.out.println("Максимальный элемент массива: " + find.getMax());
+    }
+
+
+    public static void task03() {
+        //4. Создать квадратный двумерный целочисленный массив (количество строк и столбцов одинаковое),
+        // и с помощью цикла(-ов) заполнить его диагональные элементы единицами (можно только одну из диагоналей,
+        // если обе сложно). Определить элементы одной из диагоналей можно по следующему
+        // принципу: индексы таких элементов равны, то есть [0][0], [1][1], [2][2], …, [n][n];
+        int[][] arr3 = new int[7][7];
+        for (int i = 0; i < arr3.length; i++) {
+            for (int j = 0, x = arr3[i].length - 1; j < arr3[i].length; j++, x--) {
+                if (i == j || i == x) arr3[i][j] = 1;
+                else arr3[i][j] = 0;
+                System.out.print(arr3[i][j] + " ");
+            }
+            System.out.print("\n");
+        }
+    }
+
+    public static int task04() {
+        // 4. В консоли запросить имя пользователя. В зависимости от текущего времени, вывести приветствие вида:
+        //"Доброе утро, <Имя>!", если время от 05:00 до 11:59
+        //"Добрый день, <Имя>!", если время от 12:00 до 17:59;
+        //"Добрый вечер, <Имя>!", если время от 18:00 до 22:59;
+        //"Доброй ночи, <Имя>!", если время от 23:00 до 4:59
+
+        Scanner iScanner = new Scanner(System.in);
+        System.out.printf("Введите имя: ");
+        String name = iScanner.nextLine();
+
+        final Calendar calendar = Calendar.getInstance();
+        StringBuilder currentTime = (new StringBuilder().append(calendar.get(Calendar.HOUR_OF_DAY))
+                .append(":").append(calendar.get(Calendar.MINUTE)).append(":")
+                .append(calendar.get(Calendar.SECOND)).append(" "));
+
+        int time = (calendar.get(Calendar.HOUR_OF_DAY));
+
+        if (time > 5 && time < 12) {
+            //"Доброе утро, <Имя>!", если время от 05:00 до 11:59
+            System.out.printf("Доброе утро, %s!", name);
+        }
+        if (time > 12 && time < 18) {
+            //"Добрый день, <Имя>!", если время от 12:00 до 17:59;
+            System.out.printf("Добрый день, %s!", name);
+        }
+        if (time > 18 && time < 23) {
+            //"Добрый вечер, <Имя>!", если время от 18:00 до 22:59;
+            System.out.printf("Добрый вечер, %s!", name);
+        }
+        if (time > 0 && time < 5) {
+            //"Доброй ночи, <Имя>!", если время от 23:00 до 4:59
+            System.out.printf("Доброй ночи, %s!", name);
+        }
+        if (time == 23) {
+            //"Доброй ночи, <Имя>!", если время от 23:00 до 4:59
+            System.out.printf("Доброй ночи, %s!", name);
+        }
+        System.out.println();
+        return time;
+    }
+    
+}
