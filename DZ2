@@ -1,0 +1,71 @@
+package DZ2;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Objects;
+
+public class DZ2 {
+    public static void main(String[] args) {
+        //Task1();
+        Task2();
+    }
+
+    public static StringBuilder Task1() {
+        // 1. Дана строка sql-запроса "select * from students where ".
+        // Сформируйте часть WHERE этого запроса, используя StringBuilder.
+        // Данные для фильтрации приведены ниже в виде json-строки.
+        // Если значение null, то параметр не должен попадать в запрос.
+        // Пример 1:
+        // Параметры для фильтрации: {"name:Ivanov", "country:Russia", "city:Moscow", "age:null"}
+        // Результат: SELECT * FROM USER WHERE name = 'Ivanov' and country = 'Russia' and city = 'Moscow';
+
+
+        String[] Students = {"name:Marenina", "country:Russia", "city:Krasnodar", "age:null"};
+        System.out.println(Arrays.toString(Students));
+
+        String[] name = Students[0].split(":");
+        String[] country = Students[1].split(":");
+        String[] city = Students[2].split(":");
+        String[] age = Students[3].split(":");
+
+        String emptyParameter = "null";
+        StringBuilder selWhere = new StringBuilder();
+
+        if (!Objects.equals(name[1], emptyParameter)) {
+            selWhere.append(" " + Students[0]);
+        }
+        if (!Objects.equals(country[1], emptyParameter)) {
+            selWhere.append(" " + Students[1]);
+        }
+        if (!Objects.equals(city[1], emptyParameter)) {
+            selWhere.append(" " + Students[2]);
+        }
+        if (!Objects.equals(age[1], emptyParameter)) {
+            selWhere.append(" " + Students[3]);
+        }
+        System.out.println("SELECT * FROM USER " + selWhere);
+        return selWhere;
+    }
+
+
+    public static void Task2(){
+        //Напишите метод, который определит тип (расширение) файлов из текущей папки и выведет в консоль результат вида:
+        //1 Расширение файла: txt
+        //2 Расширение файла: pdf
+
+        File dir = new File("C:\\Users\\Lenovo Legion\\java-practic20230413\\src\\main\\java\\DZ2");
+        for (File item : dir.listFiles()) {
+
+            if (item.isDirectory()) {
+                System.out.println(item.getName() + " \n folder");
+            } else {
+                String fileName = item.getName();
+                if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+                    System.out.println(item.getName() + " \n file" + " Расширение файла: " + fileName.substring(fileName.lastIndexOf(".") + 1));
+                }
+            }
+        }
+
+    }
+
+}
