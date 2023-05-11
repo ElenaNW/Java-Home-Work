@@ -1,0 +1,68 @@
+package DZ3;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class DZ3 {
+    public static void main(String[] args) {
+        task1();
+        //bookCatalog();
+    }
+
+    private static boolean task1() {
+        //1. Создать список типа ArrayList<String>. Поместить в него как строки, так и целые числа.
+        // Пройти по списку, найти и удалить целые числа.
+        // Пример: {"Яблоко", "11", "13", "Апельсин", "Дыня", "17"} -> {"Яблоко", "Апельсин", "Дыня"}
+
+        ArrayList<String> wordsAndNumbers = new ArrayList<>(Arrays.asList("Груша", "53", "13", "Апельсин", "Арбуз", "17"));
+        System.out.println(wordsAndNumbers);
+        ArrayList<String> withoutNumbers = new ArrayList<>();
+
+        for (int i = 0; i < wordsAndNumbers.size(); i++) {
+            String stringWords = wordsAndNumbers.get(i);
+            try {
+                Integer.parseInt(stringWords);
+                withoutNumbers.add(stringWords);
+            } catch (Exception e) {
+            }
+        }
+        wordsAndNumbers.removeAll(withoutNumbers);
+        System.out.println(wordsAndNumbers);
+        return false;
+    }
+
+    private static void bookCatalog() {
+        //Каталог товаров книжного магазина сохранен в виде двумерного списка List<ArrayList<String>> так,
+        // что на 0й позиции каждого внутреннего списка содержится название жанра, а на остальных позициях - названия книг.
+        // Напишите метод для заполнения данной структуры(можно через консоль).
+        //Пример:
+        //"Классика", "Преступление и наказание", "Война и мир", "Анна Каренина".
+        //"Детектив", "Десять негритят".
+        //"Фантастика", "Хроники Нарнии", "Гарри Поттер и философский камень", "Грозовой перевал".
+
+        Scanner iScanner = new Scanner(System.in);
+        List<ArrayList<String>> bookCatalog = new ArrayList<>();
+
+        int Size = 2;
+        for (int i = 0; i < Size; i++) {
+            System.out.printf("Введите жанр книги: ");
+            String genre = iScanner.nextLine();
+
+            ArrayList<String> listOfGenre = new ArrayList<>();
+            listOfGenre.add(genre);
+
+            System.out.printf("Какое количество книг в этом жанре?  ");
+            int bookCount = Integer.parseInt(iScanner.nextLine());
+
+            for (int j = 0; j < bookCount; j++) {
+                System.out.printf("Напишите название книги: ");
+                String bookName = iScanner.nextLine();
+                listOfGenre.add(bookName);
+            }
+            bookCatalog.add(listOfGenre);
+        }
+        bookCatalog.forEach(System.out::println);
+    }
+}
